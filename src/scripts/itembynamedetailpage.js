@@ -58,6 +58,14 @@ function renderItems(page, item) {
         });
     }
 
+    // Add detection of singles vs albums
+    if (item.SongCount) {
+        sections.push({
+            name: globalize.translate('Songs'),
+            type: 'Audio'
+        });
+    }
+
     if (item.MusicVideoCount) {
         sections.push({
             name: globalize.translate('MusicVideos'),
@@ -249,9 +257,11 @@ function renderSection(page, item, element, type) {
             loadItems(element, item, type, {
                 MediaTypes: '',
                 IncludeItemTypes: 'Audio',
+                Recursive: true,
                 PersonTypes: '',
-                ArtistIds: '',
+                ArtistIds: item.Id,
                 AlbumArtistIds: '',
+                HasAlbum: false,
                 SortBy: 'AlbumArtist,Album,SortName'
             }, {
                 playFromHere: true,
